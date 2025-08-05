@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mt-4">Dashboard</h2>
+<p><strong>Total Spent This Month:</strong> ₹{{ total }}</p>
+<h4>Category Breakdown</h4>
+<ul>
+    {% for category, value in category_data.items %}
+        <li>{{ category }}: ₹{{ value }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
