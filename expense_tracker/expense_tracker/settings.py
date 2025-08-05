@@ -3,15 +3,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET KEY
-SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')  # use environment variable in production
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-dev-secret')
 
-# DEBUG
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# ALLOWED HOSTS
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
-# You can also hardcode your app URL: 'your-app-name.onrender.com'
 
 # Application definition
 INSTALLED_APPS = [
@@ -27,7 +23,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ Required for serving static files on Render
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ Required for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,7 +52,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'expense_tracker.wsgi.application'
 
-# Database (SQLite for simplicity — switch to PostgreSQL if needed)
+# ✅ SQLite (OK for small deployments)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -78,20 +74,15 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 
-# Static files for production (IMPORTANT)
+# ✅ Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'expenses' / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # ✅ Required for Render deployment
-
-# Enable Whitenoise
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Auth Redirects
+# ✅ Auth
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
