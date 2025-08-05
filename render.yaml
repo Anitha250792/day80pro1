@@ -1,3 +1,4 @@
+
 services:
   - type: web
     name: expense-tracker
@@ -9,7 +10,7 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: expense_tracker.settings
       - key: SECRET_KEY
-        value: your-secret-key
+        value: your-production-secret-key
       - key: DEBUG
         value: False
       - key: DATABASE_URL
